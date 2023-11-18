@@ -6,6 +6,7 @@
   <title>Delivery Conquista</title>
 
   <style>
+    /* Estilos CSS para a página */
     body {
       font-family: 'Arial', sans-serif;
       background-color: #f8f8f8;
@@ -85,8 +86,10 @@
   </style>
 </head>
 <body>
+  <!-- Corpo da Página -->
   <h1>Seu Delivery, Sua Conquista</h1>
 
+  <!-- Formulário de Pedidos -->
   <form id="pedidoForm">
     <label for="nomeCliente">Nome do Cliente:</label>
     <input type="text" id="nomeCliente" name="nomeCliente" required>
@@ -97,7 +100,7 @@
     <button type="submit">Enviar Pedido</button>
   </form>
 
-  <!-- Adicione esta seção ao seu HTML, abaixo do formulário de pedidos -->
+  <!-- Seção de Autenticação -->
   <div id="authSection">
     <h2>Faça Login ou Crie uma Conta</h2>
     
@@ -126,11 +129,14 @@
     </form>
   </div>
 
+  <!-- Script JavaScript -->
   <script type="module">
     // Importa as funções necessárias dos SDKs do Firebase
     import { initializeApp } from "https://www.gstatic.com/firebasejs/10.6.0/firebase-app.js";
     import { getDatabase, ref, push } from "https://www.gstatic.com/firebasejs/10.6.0/firebase-database.js";
-    import { getAuth, onAuthStateChanged, createUserWithEmailAndPassword, signInWithEmailAndPassword } from "https://www.gstatic.com/firebasejs/10.6.0/firebase-auth.js";    // Sua configuração do Firebase
+    import { getAuth, onAuthStateChanged, createUserWithEmailAndPassword, signInWithEmailAndPassword } from "https://www.gstatic.com/firebasejs/10.6.0/firebase-auth.js";
+
+    // Sua configuração do Firebase
     const firebaseConfig = {
       apiKey: "AIzaSyC8ca_n6Vw41vHTG9w5sxTXTUhIAvefpBw",
       authDomain: "deliveryconquista-6e8fc.firebaseapp.com",
