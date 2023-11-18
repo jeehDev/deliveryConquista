@@ -34,12 +34,13 @@
       <input type="password" id="senhaLogin" name="senhaLogin" required>
 
       <button type="submit">Entrar</button>
+      <p>Não possui uma conta? <a href="#" id="linkCriarConta">Criar</a></p>
     </form>
 
     <hr>
 
     <!-- Formulário de Registro -->
-    <form id="registroForm">
+    <form id="registroForm" style="display: none;">
       <label for="emailRegistro">E-mail:</label>
       <input type="email" id="emailRegistro" name="emailRegistro" required>
 
@@ -47,9 +48,11 @@
       <input type="password" id="senhaRegistro" name="senhaRegistro" required>
 
       <button type="submit">Criar Conta</button>
+      <p>Não possui uma conta? <a href="#" id="linkLogin">Entrar</a></p>
     </form>
   </div>
 
   <script type="module" src="js/script.js"></script>
+  <script type="module" src="js/habilitarForms.js"></script>
 </body>
 </html>

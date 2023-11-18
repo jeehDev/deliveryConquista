@@ -28,6 +28,7 @@ onAuthStateChanged(auth, (user) => {
     console.error('Usuário não autenticado. Faça login ou crie uma conta para fazer um pedido.');
     // Exibe a seção de autenticação
     document.getElementById('authSection').style.display = 'block';
+    document.getElementById('pedidoForm').style.display = 'none';
   }
 });
 
@@ -84,6 +85,7 @@ function fazerLogin(event) {
       console.log('Usuário autenticado:', userCredential.user);
       // Oculta a seção de autenticação após o login
       document.getElementById('authSection').style.display = 'none';
+      document.getElementById('pedidoForm').style.display = 'block';
     })
     .catch((error) => {
       console.error('Erro no login:', error.message);
