@@ -18,47 +18,28 @@
     <button type="submit">Enviar Pedido</button>
   </form>
 
-  <script src="https://www.gstatic.com/firebasejs/9.6.4/firebase-app.js"></script>
-  <script src="https://www.gstatic.com/firebasejs/9.6.4/firebase-database.js"></script>
-  <script>
-    // Configurações do Firebase
+  <script type="module">
+    // Import the functions you need from the SDKs you need
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/10.6.0/firebase-app.js";
+    import { getAnalytics } from "https://www.gstatic.com/firebasejs/10.6.0/firebase-analytics.js";
+    // TODO: Add SDKs for Firebase products that you want to use
+    // https://firebase.google.com/docs/web/setup#available-libraries
+  
+    // Your web app's Firebase configuration
+    // For Firebase JS SDK v7.20.0 and later, measurementId is optional
     const firebaseConfig = {
-      apiKey: "sua-api-key",
-      authDomain: "seu-projeto.firebaseapp.com",
-      databaseURL: "https://seu-projeto.firebaseio.com",
-      projectId: "seu-projeto",
-      storageBucket: "seu-projeto.appspot.com",
-      messagingSenderId: "seu-sender-id",
-      appId: "seu-app-id"
+      apiKey: "AIzaSyC8ca_n6Vw41vHTG9w5sxTXTUhIAvefpBw",
+      authDomain: "deliveryconquista-6e8fc.firebaseapp.com",
+      projectId: "deliveryconquista-6e8fc",
+      storageBucket: "deliveryconquista-6e8fc.appspot.com",
+      messagingSenderId: "430794099557",
+      appId: "1:430794099557:web:91c63c1e3175d6eb022f8c",
+      measurementId: "G-DFJPDNBP45"
     };
-
-    // Inicialize o Firebase
-    firebase.initializeApp(firebaseConfig);
-
-    // Capturar o formulário
-    const formulario = document.getElementById('pedidoForm');
-
-    // Lidar com o envio do formulário
-    formulario.addEventListener('submit', (event) => {
-      event.preventDefault();
-
-      // Obter dados do formulário
-      const nomeCliente = document.getElementById('nomeCliente').value;
-      const detalhesPedido = document.getElementById('detalhesPedido').value;
-
-      // Estruturar o pedido
-      const pedido = {
-        nomeCliente,
-        detalhesPedido,
-      };
-
-      // Enviar pedido para o Firebase Realtime Database
-      const database = firebase.database().ref('pedidos');
-      database.push(pedido);
-
-      // Limpar campos do formulário após o envio
-      formulario.reset();
-    });
+  
+    // Initialize Firebase
+    const app = initializeApp(firebaseConfig);
+    const analytics = getAnalytics(app);
   </script>
 </body>
 </html>
