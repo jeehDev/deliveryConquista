@@ -7,6 +7,58 @@
 </head>
 <body>
   <h1>Faça seu pedido</h1>
-  <!-- Seu formulário aqui -->
+
+  <form id="pedidoForm">
+    <label for="nomeCliente">Nome do Cliente:</label>
+    <input type="text" id="nomeCliente" name="nomeCliente" required>
+
+    <label for="detalhesPedido">Detalhes do Pedido:</label>
+    <textarea id="detalhesPedido" name="detalhesPedido" rows="4" required></textarea>
+
+    <button type="submit">Enviar Pedido</button>
+  </form>
+
+  <script src="https://www.gstatic.com/firebasejs/9.6.4/firebase-app.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/9.6.4/firebase-database.js"></script>
+  <script>
+    // Configurações do Firebase
+    const firebaseConfig = {
+      apiKey: "sua-api-key",
+      authDomain: "seu-projeto.firebaseapp.com",
+      databaseURL: "https://seu-projeto.firebaseio.com",
+      projectId: "seu-projeto",
+      storageBucket: "seu-projeto.appspot.com",
+      messagingSenderId: "seu-sender-id",
+      appId: "seu-app-id"
+    };
+
+    // Inicialize o Firebase
+    firebase.initializeApp(firebaseConfig);
+
+    // Capturar o formulário
+    const formulario = document.getElementById('pedidoForm');
+
+    // Lidar com o envio do formulário
+    formulario.addEventListener('submit', (event) => {
+      event.preventDefault();
+
+      // Obter dados do formulário
+      const nomeCliente = document.getElementById('nomeCliente').value;
+      const detalhesPedido = document.getElementById('detalhesPedido').value;
+
+      // Estruturar o pedido
+      const pedido = {
+        nomeCliente,
+        detalhesPedido,
+      };
+
+      // Enviar pedido para o Firebase Realtime Database
+      const database = firebase.database().ref('pedidos');
+      database.push(pedido);
+
+      // Limpar campos do formulário após o envio
+      formulario.reset();
+    });
+  </script>
 </body>
 </html>
