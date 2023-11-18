@@ -20,7 +20,9 @@
 
   <!-- Adicione esta seção ao seu HTML, abaixo do formulário de pedidos -->
   <div id="authSection" style="display: none;">
-    <h2>Faça Login</h2>
+    <h2>Faça Login ou Crie uma Conta</h2>
+    
+    <!-- Formulário de Login -->
     <form id="loginForm">
       <label for="emailLogin">E-mail:</label>
       <input type="email" id="emailLogin" name="emailLogin" required>
@@ -30,12 +32,25 @@
 
       <button type="submit">Entrar</button>
     </form>
+
+    <hr>
+
+    <!-- Formulário de Registro -->
+    <form id="registroForm">
+      <label for="emailRegistro">E-mail:</label>
+      <input type="email" id="emailRegistro" name="emailRegistro" required>
+
+      <label for="senhaRegistro">Senha:</label>
+      <input type="password" id="senhaRegistro" name="senhaRegistro" required>
+
+      <button type="submit">Criar Conta</button>
+    </form>
   </div>
 
   <script type="module">
     // Importa as funções necessárias dos SDKs do Firebase
     import { initializeApp } from "https://www.gstatic.com/firebasejs/10.6.0/firebase-app.js";
-    import { getDatabase, ref, push, getAuth, signInWithEmailAndPassword } from "https://www.gstatic.com/firebasejs/10.6.0/firebase-database.js";
+    import { getDatabase, ref, push, getAuth, signInWithEmailAndPassword, createUserWithEmailAndPassword, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/10.6.0/firebase-database.js";
 
     // Sua configuração do Firebase
     const firebaseConfig = {
@@ -53,6 +68,18 @@
     const database = getDatabase(app);
     const auth = getAuth(app);
 
+    // Adicione esta verificação antes da lógica que lida com o envio do formulário de pedidos
+    // ...
+
+    // Verifica se o usuário está autenticado
+    onAuthStateChanged(auth, (user) => {
+      if (!user) {
+        console.error('Usuário não autenticado. Faça login ou crie uma conta para fazer um pedido.');
+        // Exibe a seção de autenticação
+        document.getElementById('authSection').style.display = 'block';
+      }
+    });
+
     // Captura o formulário
     const formulario = document.getElementById('pedidoForm');
 
@@ -60,10 +87,10 @@
     formulario.addEventListener('submit', async (event) => {
       event.preventDefault();
 
-      // Verifica se o usuário está autenticado
+      // Verifica se o usuário está autenticado novamente (pode ter mudado enquanto a página estava aberta)
       const user = auth.currentUser;
       if (!user) {
-        console.error('Usuário não autenticado. Faça login para fazer um pedido.');
+        console.error('Usuário não autenticado. Faça login ou crie uma conta para fazer um pedido.');
         // Exibe a seção de autenticação
         document.getElementById('authSection').style.display = 'block';
         return;
@@ -109,6 +136,33 @@
         })
         .catch((error) => {
           console.error('Erro no login:', error);
+        });
+    }
+
+    // Captura o formulário de registro
+    const registroForm = document.getElementById('registroForm');
+
+    // Adiciona ouvinte de eventos ao formulário de registro
+    registroForm.addEventListener('submit', fazerRegistro);
+
+    // Função para fazer registro
+    function fazerRegistro(event) {
+      event.preventDefault();
+
+      const email = document.getElementById('emailRegistro').value;
+      const senha = document.getElementById('senhaRegistro').value;
+
+      // Cria uma nova conta no Firebase
+      createUserWithEmailAndPassword(auth, email, senha)
+        .then((userCredential) => {
+          console.log('Nova conta criada:', userCredential.user);
+          // Após o registro, você pode automaticamente fazer login, ou pedir para o usuário fazer login manualmente
+          // signInWithEmailAndPassword(auth, email, senha);
+          // Oculta a seção de autenticação após o registro
+          document.getElementById('authSection').style.display = 'none';
+        })
+        .catch((error) => {
+          console.error('Erro no registro:', error);
         });
     }
   </script>
