@@ -107,7 +107,6 @@ function fazerRegistro(event) {
   event.preventDefault();
 
   const email = document.getElementById('emailRegistro').value;
-  const telefone = document.getElementById('telefoneCriar').value;
   const senha = document.getElementById('senhaRegistro').value;
 
   // Verifica se a senha atende aos requisitos mínimos
@@ -117,7 +116,7 @@ function fazerRegistro(event) {
   }
 
   // Cria uma nova conta no Firebase
-  createUserWithEmailAndPassword(auth, email, telefone, senha)
+  createUserWithEmailAndPassword(auth, email, senha)
     .then((userCredential) => {
       console.log('Nova conta criada:', userCredential.user);
       // Após o registro, você pode automaticamente fazer login, ou pedir para o usuário fazer login manualmente
