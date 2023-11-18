@@ -53,11 +53,17 @@ formulario.addEventListener('submit', async (event) => {
 
   // Obtém dados do formulário
   const nomeCliente = document.getElementById('nomeCliente').value;
+  const telefoneCliente = document.getElementById('telefone').value;
+  const bloco = document.getElementById('bloco').value;
+  const ap = document.getElementById('ap').value;
   const detalhesPedido = document.getElementById('detalhesPedido').value;
 
   // Estrutura o pedido
   const pedido = {
     nomeCliente,
+    telefoneCliente,
+    bloco,
+    ap,
     detalhesPedido,
   };
 
