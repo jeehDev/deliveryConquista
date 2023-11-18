@@ -57,6 +57,7 @@ formulario.addEventListener('submit', async (event) => {
   const bloco = document.getElementById('bloco').value;
   const ap = document.getElementById('ap').value;
   const detalhesPedido = document.getElementById('detalhesPedido').value;
+  const status = "aberto";
 
   // Estrutura o pedido
   const pedido = {
@@ -65,6 +66,7 @@ formulario.addEventListener('submit', async (event) => {
     bloco,
     ap,
     detalhesPedido,
+    status,
   };
 
   // Envia o pedido para o Firebase Realtime Database
