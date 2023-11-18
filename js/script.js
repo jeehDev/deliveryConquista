@@ -1,7 +1,8 @@
 // Importa as funções necessárias dos SDKs do Firebase
 import { initializeApp } from "https://www.gstatic.com/firebasejs/10.6.0/firebase-app.js";
-import { getDatabase, ref, push } from "https://www.gstatic.com/firebasejs/10.6.0/firebase-database.js";
+import { getDatabase, ref, push, onValue } from "https://www.gstatic.com/firebasejs/10.6.0/firebase-database.js";
 import { getAuth, onAuthStateChanged, createUserWithEmailAndPassword, signInWithEmailAndPassword } from "https://www.gstatic.com/firebasejs/10.6.0/firebase-auth.js";
+
 
 // Sua configuração do Firebase
 const firebaseConfig = {
@@ -29,6 +30,8 @@ onAuthStateChanged(auth, (user) => {
     // Exibe a seção de autenticação
     document.getElementById('authSection').style.display = 'block';
     document.getElementById('pedidoForm').style.display = 'none';
+  }else{
+    listarPedidosDoUsuario();
   }
 });
 
@@ -86,6 +89,7 @@ function fazerLogin(event) {
       // Oculta a seção de autenticação após o login
       document.getElementById('authSection').style.display = 'none';
       document.getElementById('pedidoForm').style.display = 'block';
+      listarPedidosDoUsuario()
     })
     .catch((error) => {
       console.error('Erro no login:', error.message);
@@ -123,4 +127,37 @@ function fazerRegistro(event) {
     .catch((error) => {
       console.error('Erro no registro:', error.message);
     });
+}
+
+// Lógica para listar pedidos do usuário após o login
+function listarPedidosDoUsuario() {
+  const userOrdersSection = document.getElementById('userOrdersSection');
+  const userOrdersList = document.getElementById('userOrdersList');
+
+  // Exibe a seção de pedidos do usuário
+  userOrdersSection.style.display = 'block';
+
+  // Obtém referência para os pedidos do usuário no Firebase Realtime Database
+  const userOrdersRef = ref(database, 'pedidos');
+
+  // Adiciona ouvinte de eventos para escutar alterações nos pedidos
+  onValue(userOrdersRef, (snapshot) => { // Use onValue em vez de on
+    // Limpa a lista de pedidos antes de adicionar os novos
+    userOrdersList.innerHTML = '';
+
+    // Verifica se há pedidos
+    if (snapshot.exists()) {
+      const pedidos = snapshot.val();
+
+      // Itera sobre os pedidos e adiciona à lista
+      Object.keys(pedidos).forEach((key) => {
+        const pedido = pedidos[key];
+        const listItem = document.createElement('div');
+        listItem.textContent = `Cliente: ${pedido.nomeCliente}, Pedido: ${pedido.detalhesPedido}`;
+        userOrdersList.appendChild(listItem);
+      });
+    } else {
+      userOrdersList.textContent = 'Nenhum pedido encontrado.';
+    }
+  });
 }

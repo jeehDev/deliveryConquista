@@ -8,51 +8,75 @@
 </head>
 <body>
   <!-- Corpo da Página -->
-  <h1>Seu Delivery, Sua Conquista</h1>
+  <div class="container">
+    <h1>Seu Delivery, Sua Conquista</h1>
 
-  <!-- Formulário de Pedidos -->
-  <form id="pedidoForm">
-    <label for="nomeCliente">Nome do Cliente:</label>
-    <input type="text" id="nomeCliente" name="nomeCliente" required>
+    <!-- Formulário de Pedidos -->
+    <form id="pedidoForm" class="form">
+      <label for="nomeCliente">Nome do Cliente:</label>
+      <input type="text" id="nomeCliente" name="nomeCliente" required>
 
-    <label for="detalhesPedido">Detalhes do Pedido:</label>
-    <textarea id="detalhesPedido" name="detalhesPedido" rows="4" required></textarea>
+      <label for="telefone">Telefone:</label>
+      <input type="text" id="telefone" name="telefone" required>
 
-    <button type="submit">Enviar Pedido</button>
-  </form>
-
-  <!-- Seção de Autenticação -->
-  <div id="authSection">
-    <h2>Faça Login ou Crie uma Conta</h2>
+      <div class="bloco-ap-container">
+        <div class="input-group">
+          <label for="bloco">Bloco:</label>
+          <input type="text" id="bloco" name="bloco" required>
+        </div>
     
-    <!-- Formulário de Login -->
-    <form id="loginForm">
-      <label for="emailLogin">E-mail:</label>
-      <input type="email" id="emailLogin" name="emailLogin" required>
+        <div class="input-group">
+          <label for="ap">Apartamento:</label>
+          <input type="text" id="ap" name="ap" required>
+        </div>
+      </div>
 
-      <label for="senhaLogin">Senha:</label>
-      <input type="password" id="senhaLogin" name="senhaLogin" required>
+      <label for="detalhesPedido">Detalhes do Pedido:</label>
+      <textarea id="detalhesPedido" name="detalhesPedido" rows="4" required></textarea>
 
-      <button type="submit">Entrar</button>
-      <p>Não possui uma conta? <a href="#" id="linkCriarConta">Criar</a></p>
+      <button type="submit">Enviar Pedido</button>
     </form>
 
-    <hr>
+    <!-- Seção de Autenticação -->
+    <div id="authSection" class="auth-section">
+      <h2>Faça Login ou Crie uma Conta</h2>
+      
+      <!-- Formulário de Login -->
+      <form id="loginForm" class="form">
+        <label for="emailLogin">E-mail:</label>
+        <input type="email" id="emailLogin" name="emailLogin" required>
 
-    <!-- Formulário de Registro -->
-    <form id="registroForm" style="display: none;">
-      <label for="emailRegistro">E-mail:</label>
-      <input type="email" id="emailRegistro" name="emailRegistro" required>
+        <label for="senhaLogin">Senha:</label>
+        <input type="password" id="senhaLogin" name="senhaLogin" required>
 
-      <label for="senhaRegistro">Senha:</label>
-      <input type="password" id="senhaRegistro" name="senhaRegistro" required>
+        <button type="submit">Entrar</button>
+        <p>Não possui uma conta? <a href="#" id="linkCriarConta">Criar</a></p>
+      </form>
 
-      <button type="submit">Criar Conta</button>
-      <p>Não possui uma conta? <a href="#" id="linkLogin">Entrar</a></p>
-    </form>
+      <hr>
+
+      <!-- Formulário de Registro -->
+      <form id="registroForm" class="form" style="display: none;">
+        <label for="emailRegistro">E-mail:</label>
+        <input type="email" id="emailRegistro" name="emailRegistro" required>
+
+        <label for="senhaRegistro">Senha:</label>
+        <input type="password" id="senhaRegistro" name="senhaRegistro" required>
+
+        <button type="submit">Criar Conta</button>
+        <p>Não possui uma conta? <a href="#" id="linkLogin">Entrar</a></p>
+      </form>
+    </div>
+
+    <!-- Seção de Pedidos do Usuário -->
+    <div id="userOrdersSection" class="user-orders-section" style="display: none;">
+      <h2>Seus Pedidos</h2>
+      <div id="userOrdersList" class="user-orders-list"></div>
+    </div>
   </div>
 
   <script type="module" src="js/script.js"></script>
   <script type="module" src="js/habilitarForms.js"></script>
+  <script type="module" src="js/listaPedidos.js"></script>
 </body>
 </html>
