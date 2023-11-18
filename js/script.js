@@ -124,6 +124,7 @@ function fazerRegistro(event) {
       // signInWithEmailAndPassword(auth, email, senha);
       // Oculta a seção de autenticação após o registro
       document.getElementById('authSection').style.display = 'none';
+      document.getElementById('pedidoForm').style.display = 'block';
     })
     .catch((error) => {
       console.error('Erro no registro:', error.message);
