@@ -162,7 +162,7 @@ function listarPedidosDoUsuario() {
       Object.keys(pedidos).forEach((key) => {
         const pedido = pedidos[key];
         const listItem = document.createElement('div');
-        listItem.textContent = `Cliente: ${pedido.nomeCliente}, Pedido: ${pedido.detalhesPedido}`;
+        listItem.textContent = `Status: ${pedido.status} | Cliente: ${pedido.nomeCliente} | Pedido: ${pedido.detalhesPedido}`;
         userOrdersList.appendChild(listItem);
       });
     } else {
