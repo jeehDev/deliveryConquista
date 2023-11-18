@@ -134,7 +134,7 @@
           document.getElementById('authSection').style.display = 'none';
         })
         .catch((error) => {
-          console.error('Erro no login:', error);
+          console.error('Erro no login:', error.message);
         });
     }
 
@@ -151,6 +151,12 @@
       const email = document.getElementById('emailRegistro').value;
       const senha = document.getElementById('senhaRegistro').value;
 
+      // Verifica se a senha atende aos requisitos mínimos
+      if (senha.length < 6) {
+        console.error('Erro no registro: A senha deve ter pelo menos 6 caracteres.');
+        return;
+      }
+
       // Cria uma nova conta no Firebase
       createUserWithEmailAndPassword(auth, email, senha)
         .then((userCredential) => {
@@ -161,7 +167,7 @@
           document.getElementById('authSection').style.display = 'none';
         })
         .catch((error) => {
-          console.error('Erro no registro:', error);
+          console.error('Erro no registro:', error.message);
         });
     }
   </script>
