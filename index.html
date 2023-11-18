@@ -50,7 +50,7 @@
   <script type="module">
     // Importa as funções necessárias dos SDKs do Firebase
     import { initializeApp } from "https://www.gstatic.com/firebasejs/10.6.0/firebase-app.js";
-    import { getDatabase, ref, push, getAuth, signInWithEmailAndPassword, createUserWithEmailAndPassword, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/10.6.0/firebase-database.js";
+    import { getDatabase, ref, push, getAuth, onAuthStateChanged, createUserWithEmailAndPassword, signInWithEmailAndPassword } from "https://www.gstatic.com/firebasejs/10.6.0/firebase-auth.js"; // Corrigi aqui, substituindo 'firebase-database.js' por 'firebase-auth.js'
 
     // Sua configuração do Firebase
     const firebaseConfig = {
