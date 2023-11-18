@@ -3,10 +3,89 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Seu Serviço de Pedidos</title>
+  <title>Delivery Conquista</title>
+
+  <style>
+    body {
+      font-family: 'Arial', sans-serif;
+      background-color: #f8f8f8;
+      margin: 0;
+      padding: 0;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      height: 100vh;
+    }
+
+    h1 {
+      color: #333;
+      margin-bottom: 20px;
+    }
+
+    form {
+      background-color: #fff;
+      border-radius: 8px;
+      padding: 20px;
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+      width: 300px;
+      max-width: 100%;
+      box-sizing: border-box;
+    }
+
+    label {
+      display: block;
+      margin-bottom: 8px;
+      color: #555;
+    }
+
+    input, textarea {
+      width: 100%;
+      padding: 10px;
+      margin-bottom: 16px;
+      box-sizing: border-box;
+      border: 1px solid #ddd;
+      border-radius: 4px;
+      font-size: 16px;
+    }
+
+    button {
+      background-color: #4caf50;
+      color: #fff;
+      padding: 10px 20px;
+      border: none;
+      border-radius: 4px;
+      cursor: pointer;
+      font-size: 16px;
+    }
+
+    button:hover {
+      background-color: #45a049;
+    }
+
+    #authSection {
+      display: none;
+      text-align: center;
+      margin-top: 20px;
+    }
+
+    #authSection h2 {
+      color: #333;
+    }
+
+    #authSection form {
+      margin-top: 10px;
+    }
+
+    #authSection hr {
+      margin: 20px 0;
+      border: 0;
+      border-top: 1px solid #eee;
+    }
+  </style>
 </head>
 <body>
-  <h1>Faça seu pedido</h1>
+  <h1>Seu Delivery, Sua Conquista</h1>
 
   <form id="pedidoForm">
     <label for="nomeCliente">Nome do Cliente:</label>
@@ -19,7 +98,7 @@
   </form>
 
   <!-- Adicione esta seção ao seu HTML, abaixo do formulário de pedidos -->
-  <div id="authSection" style="display: none;">
+  <div id="authSection">
     <h2>Faça Login ou Crie uma Conta</h2>
     
     <!-- Formulário de Login -->
