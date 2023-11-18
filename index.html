@@ -8,115 +8,109 @@
 <body>
   <h1>Faça seu pedido</h1>
 
-    <form id="pedidoForm">
-        <label for="nomeCliente">Nome do Cliente:</label>
-        <input type="text" id="nomeCliente" name="nomeCliente" required>
+  <form id="pedidoForm">
+    <label for="nomeCliente">Nome do Cliente:</label>
+    <input type="text" id="nomeCliente" name="nomeCliente" required>
 
-        <label for="detalhesPedido">Detalhes do Pedido:</label>
-        <textarea id="detalhesPedido" name="detalhesPedido" rows="4" required></textarea>
+    <label for="detalhesPedido">Detalhes do Pedido:</label>
+    <textarea id="detalhesPedido" name="detalhesPedido" rows="4" required></textarea>
 
-        <button type="submit">Enviar Pedido</button>
+    <button type="submit">Enviar Pedido</button>
+  </form>
+
+  <!-- Adicione esta seção ao seu HTML, abaixo do formulário de pedidos -->
+  <div id="authSection" style="display: none;">
+    <h2>Faça Login</h2>
+    <form id="loginForm">
+      <label for="emailLogin">E-mail:</label>
+      <input type="email" id="emailLogin" name="emailLogin" required>
+
+      <label for="senhaLogin">Senha:</label>
+      <input type="password" id="senhaLogin" name="senhaLogin" required>
+
+      <button type="submit">Entrar</button>
     </form>
+  </div>
 
-    <!-- Adicione esta seção ao seu HTML, abaixo do formulário de pedidos -->
-    <div id="authSection">
-        <h2>Faça Login</h2>
-        <form id="loginForm">
-        <label for="emailLogin">E-mail:</label>
-        <input type="email" id="emailLogin" name="emailLogin" required>
-    
-        <label for="senhaLogin">Senha:</label>
-        <input type="password" id="senhaLogin" name="senhaLogin" required>
-    
-        <button type="submit">Entrar</button>
-        </form>
-    </div>
+  <script type="module">
+    // Importa as funções necessárias dos SDKs do Firebase
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/10.6.0/firebase-app.js";
+    import { getDatabase, ref, push, getAuth, signInWithEmailAndPassword } from "https://www.gstatic.com/firebasejs/10.6.0/firebase-database.js";
 
-    <script type="module">
-        // Importa as funções necessárias dos SDKs do Firebase
-        import { initializeApp } from "https://www.gstatic.com/firebasejs/10.6.0/firebase-app.js";
-        import { getDatabase, ref, push } from "https://www.gstatic.com/firebasejs/10.6.0/firebase-database.js";
-    
-        // Sua configuração do Firebase
-        const firebaseConfig = {
-        apiKey: "AIzaSyC8ca_n6Vw41vHTG9w5sxTXTUhIAvefpBw",
-        authDomain: "deliveryconquista-6e8fc.firebaseapp.com",
-        projectId: "deliveryconquista-6e8fc",
-        storageBucket: "deliveryconquista-6e8fc.appspot.com",
-        messagingSenderId: "430794099557",
-        appId: "1:430794099557:web:91c63c1e3175d6eb022f8c",
-        measurementId: "G-DFJPDNBP45"
-        };
-    
-        // Inicializa o Firebase
-        const app = initializeApp(firebaseConfig);
-        const database = getDatabase(app);
-    
-        // Adicione esta verificação antes da lógica que lida com o envio do formulário de pedidos
-        // ...
+    // Sua configuração do Firebase
+    const firebaseConfig = {
+      apiKey: "AIzaSyC8ca_n6Vw41vHTG9w5sxTXTUhIAvefpBw",
+      authDomain: "deliveryconquista-6e8fc.firebaseapp.com",
+      projectId: "deliveryconquista-6e8fc",
+      storageBucket: "deliveryconquista-6e8fc.appspot.com",
+      messagingSenderId: "430794099557",
+      appId: "1:430794099557:web:91c63c1e3175d6eb022f8c",
+      measurementId: "G-DFJPDNBP45"
+    };
 
-        // Verifica se o usuário está autenticado
-        const user = app.auth().currentUser;
-        if (!user) {
+    // Inicializa o Firebase
+    const app = initializeApp(firebaseConfig);
+    const database = getDatabase(app);
+    const auth = getAuth(app);
+
+    // Captura o formulário
+    const formulario = document.getElementById('pedidoForm');
+
+    // Lida com o envio do formulário
+    formulario.addEventListener('submit', async (event) => {
+      event.preventDefault();
+
+      // Verifica se o usuário está autenticado
+      const user = auth.currentUser;
+      if (!user) {
         console.error('Usuário não autenticado. Faça login para fazer um pedido.');
         // Exibe a seção de autenticação
         document.getElementById('authSection').style.display = 'block';
         return;
-        }
+      }
 
-        // Captura o formulário
-        const formulario = document.getElementById('pedidoForm');
-    
-        // Lida com o envio do formulário
-        formulario.addEventListener('submit', (event) => {
-        event.preventDefault();
-    
-        // Obtém dados do formulário
-        const nomeCliente = document.getElementById('nomeCliente').value;
-        const detalhesPedido = document.getElementById('detalhesPedido').value;
-    
-        // Estrutura o pedido
-        const pedido = {
-            nomeCliente,
-            detalhesPedido,
-        };
-    
-        // Envia o pedido para o Firebase Realtime Database
-        const pedidosRef = ref(database, 'pedidos');
-        push(pedidosRef, pedido);
-    
-        // Limpa campos do formulário após o envio
-        formulario.reset();
+      // Obtém dados do formulário
+      const nomeCliente = document.getElementById('nomeCliente').value;
+      const detalhesPedido = document.getElementById('detalhesPedido').value;
+
+      // Estrutura o pedido
+      const pedido = {
+        nomeCliente,
+        detalhesPedido,
+      };
+
+      // Envia o pedido para o Firebase Realtime Database
+      const pedidosRef = ref(database, 'pedidos');
+      push(pedidosRef, pedido);
+
+      // Limpa campos do formulário após o envio
+      formulario.reset();
+    });
+
+    // Captura o formulário de login
+    const loginForm = document.getElementById('loginForm');
+
+    // Adiciona ouvinte de eventos ao formulário de login
+    loginForm.addEventListener('submit', fazerLogin);
+
+    // Função para fazer login
+    function fazerLogin(event) {
+      event.preventDefault();
+
+      const email = document.getElementById('emailLogin').value;
+      const senha = document.getElementById('senhaLogin').value;
+
+      // Faz login no Firebase
+      signInWithEmailAndPassword(auth, email, senha)
+        .then((userCredential) => {
+          console.log('Usuário autenticado:', userCredential.user);
+          // Oculta a seção de autenticação após o login
+          document.getElementById('authSection').style.display = 'none';
+        })
+        .catch((error) => {
+          console.error('Erro no login:', error);
         });
-
-
-        // Adicione esta seção à sua lógica JavaScript, abaixo da lógica existente
-        // ...
-
-        // Captura o formulário de login
-        const loginForm = document.getElementById('loginForm');
-
-        // Adiciona ouvinte de eventos ao formulário de login
-        loginForm.addEventListener('submit', fazerLogin);
-
-        // Função para fazer login
-        function fazerLogin(event) {
-        event.preventDefault();
-
-        const email = document.getElementById('emailLogin').value;
-        const senha = document.getElementById('senhaLogin').value;
-
-        // Faz login no Firebase
-        signInWithEmailAndPassword(app.auth(), email, senha)
-            .then((userCredential) => {
-            console.log('Usuário autenticado:', userCredential.user);
-            // Oculta a seção de autenticação após o login
-            document.getElementById('authSection').style.display = 'none';
-            })
-            .catch((error) => {
-            console.error('Erro no login:', error);
-            });
-        }
-    </script>
+    }
+  </script>
 </body>
 </html>
