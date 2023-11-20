@@ -54,13 +54,15 @@
         <p>Não possui uma conta? <a href="#" id="linkCriarConta">Criar</a></p>
       </form>
 
-      <form action="https://www.paypal.com/cgi-bin/webscr" method="post" target="_top">
-        <input type="hidden" name="cmd" value="_s-xclick" />
-        <input type="hidden" name="hosted_button_id" value="JMWUP2ZGX3EMY" />
-        <input type="hidden" name="currency_code" value="BRL" />
-        <input type="image" src="https://www.paypalobjects.com/en_US/i/btn/btn_buynowCC_LG.gif" border="0" name="submit" title="PayPal - The safer, easier way to pay online!" alt="Buy Now" />
-      </form>
+      <script async
+      src="https://js.stripe.com/v3/buy-button.js">
+      </script>
       
+      <stripe-buy-button
+        buy-button-id="buy_btn_1OEXCPFJhPaYChBocNlTdh1a"
+        publishable-key="pk_live_51OEWssFJhPaYChBo889yvzq68k7uBk6mGypQklvxc6nEoHufmV9yXR5bJgl3Wy5OJbugClFKFb9K1uZk6B7qkYAC000mvA33O3"
+      >
+      </stripe-buy-button>      
       <hr>
 
       <!-- Formulário de Registro -->
